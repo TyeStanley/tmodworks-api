@@ -6,26 +6,19 @@ namespace tmodworks_api.Api.Controllers
 {
   [ApiController]
   [Route("api/[controller]")]
-  public class TodosController : ControllerBase
+  public class TodosController(ITodoService todoService) : ControllerBase
   {
-    private readonly ITodoService _todoService;
-
-    public TodosController(ITodoService todoService)
-    {
-      _todoService = todoService;
-    }
-
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Todo>>> GetAll()
     {
-      var todos = await _todoService.GetAllTodosAsync();
+      var todos = await todoService.GetAllTodosAsync();
       return Ok(todos);
     }
 
     [HttpGet("{id}")]
     public async Task<ActionResult<Todo>> GetById(int id)
     {
-      var todo = await _todoService.GetTodoByIdAsync(id);
+      var todo = await todoService.GetTodoByIdAsync(id);
       if (todo == null)
       {
         return NotFound();
@@ -38,7 +31,7 @@ namespace tmodworks_api.Api.Controllers
     {
       try
       {
-        var createdTodo = await _todoService.CreateTodoAsync(todo);
+        var createdTodo = await todoService.CreateTodoAsync(todo);
         return CreatedAtAction(nameof(GetById), new { id = createdTodo.Id }, createdTodo);
       }
       catch (ArgumentException ex)
@@ -52,7 +45,7 @@ namespace tmodworks_api.Api.Controllers
     {
       try
       {
-        var updatedTodo = await _todoService.UpdateTodoAsync(id, todo);
+        var updatedTodo = await todoService.UpdateTodoAsync(id, todo);
         return Ok(updatedTodo);
       }
       catch (ArgumentException ex)
@@ -66,7 +59,7 @@ namespace tmodworks_api.Api.Controllers
     {
       try
       {
-        await _todoService.DeleteTodoAsync(id);
+        await todoService.DeleteTodoAsync(id);
         return NoContent();
       }
       catch (ArgumentException ex)
