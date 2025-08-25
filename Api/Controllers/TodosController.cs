@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using tmodworks_api.Core.Models;
-using tmodworks_api.Core.Services;
+using tmodworks_api.Core.Interfaces;
 
 namespace tmodworks_api.Api.Controllers
 {
