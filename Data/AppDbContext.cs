@@ -86,64 +86,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
                 .OnDelete(DeleteBehavior.Cascade);
     });
 
-    // Seed initial data for CheatCategory
-    modelBuilder.Entity<CheatCategory>().HasData(
-        new CheatCategory { Id = Guid.NewGuid().ToString(), Name = CheatCategoryType.PLAYER, Priority = 0 },
-        new CheatCategory { Id = Guid.NewGuid().ToString(), Name = CheatCategoryType.INVENTORY, Priority = 1 },
-        new CheatCategory { Id = Guid.NewGuid().ToString(), Name = CheatCategoryType.STATS, Priority = 2 },
-        new CheatCategory { Id = Guid.NewGuid().ToString(), Name = CheatCategoryType.ENEMIES, Priority = 3 },
-        new CheatCategory { Id = Guid.NewGuid().ToString(), Name = CheatCategoryType.WEAPONS, Priority = 4 },
-        new CheatCategory { Id = Guid.NewGuid().ToString(), Name = CheatCategoryType.GAME, Priority = 5 },
-        new CheatCategory { Id = Guid.NewGuid().ToString(), Name = CheatCategoryType.PHYSICS, Priority = 6 },
-        new CheatCategory { Id = Guid.NewGuid().ToString(), Name = CheatCategoryType.TELEPORT, Priority = 7 },
-        new CheatCategory { Id = Guid.NewGuid().ToString(), Name = CheatCategoryType.OTHER, Priority = 8 }
-    );
-
-    // Seed initial data for Game
-    var battlefrontGameId = "11111111-1111-1111-1111-111111111111";
-    var healthCheatId = "22222222-2222-2222-2222-222222222222";
-
-    modelBuilder.Entity<Game>().HasData(
-        new Game
-        {
-          Id = battlefrontGameId,
-          SteamAppId = 2446550,
-          Name = "STAR WARS™: Battlefront Classic Collection",
-          ProcessName = "Battlefront2.exe",
-          ModuleName = "Battlefront2.dll",
-          IsActive = true,
-          CreatedAt = DateTime.UtcNow,
-          UpdatedAt = DateTime.UtcNow
-        }
-    );
-
-    // Seed initial data for Cheat
-    modelBuilder.Entity<Cheat>().HasData(
-        new Cheat
-        {
-          Id = healthCheatId,
-          Name = "Health",
-          CategoryId = "PLAYER",
-          IsActive = true,
-          CreatedAt = DateTime.UtcNow,
-          UpdatedAt = DateTime.UtcNow
-        }
-    );
-
-    // Seed initial data for GameCheat
-    modelBuilder.Entity<GameCheat>().HasData(
-        new GameCheat
-        {
-          Id = Guid.NewGuid().ToString(),
-          GameId = battlefrontGameId,
-          CheatId = healthCheatId,
-          DisplayName = "Infinite Health",
-          BaseAddress = "023DF1B0",
-          Offsets = [38],
-          IsActive = true,
-          CreatedAt = DateTime.UtcNow,
-          UpdatedAt = DateTime.UtcNow
-        }
-    );
+    // Seed initial data
+    Seeding.SeedData(modelBuilder);
   }
 }
