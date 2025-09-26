@@ -86,6 +86,7 @@ public static class Seeding
           BaseAddress = "023DF1B0",
           Offsets = [38],
           IsActive = true,
+          ControlType = "TOGGLE",
           CreatedAt = DateTime.UtcNow,
           UpdatedAt = DateTime.UtcNow
         }

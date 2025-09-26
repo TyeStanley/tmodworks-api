@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace tmodworks.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250925214723_Initial")]
+    [Migration("20250926181807_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -67,12 +67,12 @@ namespace tmodworks.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1e15a719-b17c-4cb7-b31e-7b9eb79df3fa",
-                            CategoryId = "2d0e264d-4192-4d5a-9ed9-dc64a1ecc04b",
-                            CreatedAt = new DateTime(2025, 9, 25, 21, 47, 23, 441, DateTimeKind.Utc).AddTicks(1577),
+                            Id = "4fd1cd7e-c97b-42ba-b604-6b7aa557e527",
+                            CategoryId = "a48f0eb2-f930-48fa-8f6d-fd6f265fca71",
+                            CreatedAt = new DateTime(2025, 9, 26, 18, 18, 6, 838, DateTimeKind.Utc).AddTicks(8571),
                             IsActive = true,
                             Name = "Health",
-                            UpdatedAt = new DateTime(2025, 9, 25, 21, 47, 23, 441, DateTimeKind.Utc).AddTicks(1578)
+                            UpdatedAt = new DateTime(2025, 9, 26, 18, 18, 6, 838, DateTimeKind.Utc).AddTicks(8572)
                         });
                 });
 
@@ -102,55 +102,55 @@ namespace tmodworks.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "2d0e264d-4192-4d5a-9ed9-dc64a1ecc04b",
+                            Id = "a48f0eb2-f930-48fa-8f6d-fd6f265fca71",
                             Name = "PLAYER",
                             Priority = 0
                         },
                         new
                         {
-                            Id = "e964d84c-b235-414f-bc95-4524e761ffed",
+                            Id = "74bab71c-6522-4b58-9e02-f3c72108a2cb",
                             Name = "INVENTORY",
                             Priority = 1
                         },
                         new
                         {
-                            Id = "ad8a1cb0-b355-4bb4-a4f4-c40b2d993943",
+                            Id = "c9540210-a1ef-425f-a048-1e0170d1d175",
                             Name = "STATS",
                             Priority = 2
                         },
                         new
                         {
-                            Id = "49983f5c-3382-4ead-af25-6aba0e544ac2",
+                            Id = "ef0e46f8-2003-4f90-93b7-30c614160dd1",
                             Name = "ENEMIES",
                             Priority = 3
                         },
                         new
                         {
-                            Id = "b9c740f2-b8f2-48b0-aa47-9ab4728a7b25",
+                            Id = "86c8bd7f-d407-460a-a6e4-29903fbbc5be",
                             Name = "WEAPONS",
                             Priority = 4
                         },
                         new
                         {
-                            Id = "6bc4e6ee-4ac3-4d83-810f-7176dd05ca49",
+                            Id = "bbcc9473-2b20-4675-a951-6bfb04ef17c6",
                             Name = "GAME",
                             Priority = 5
                         },
                         new
                         {
-                            Id = "e3872ec1-deb7-47b7-9ec1-28a6fa00db01",
+                            Id = "62cc82e6-6688-48a6-8fe5-a0149e8208e8",
                             Name = "PHYSICS",
                             Priority = 6
                         },
                         new
                         {
-                            Id = "a6931b4a-b337-40ed-affa-076cc42d8fa1",
+                            Id = "4699a053-420d-4ecd-aac5-eba93ed4167a",
                             Name = "TELEPORT",
                             Priority = 7
                         },
                         new
                         {
-                            Id = "e4ad9b77-3e53-41ae-8a0f-47ea680fde27",
+                            Id = "0f5afa3f-3d99-4969-91f6-c75d867269c9",
                             Name = "OTHER",
                             Priority = 8
                         });
@@ -203,14 +203,14 @@ namespace tmodworks.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "4495544a-1d1a-44a6-87c0-f3232028e9cd",
-                            CreatedAt = new DateTime(2025, 9, 25, 21, 47, 23, 441, DateTimeKind.Utc).AddTicks(1548),
+                            Id = "0ecd7690-b369-461e-8a99-4ba1f3a0c457",
+                            CreatedAt = new DateTime(2025, 9, 26, 18, 18, 6, 838, DateTimeKind.Utc).AddTicks(8543),
                             IsActive = true,
                             ModuleName = "Battlefront2.dll",
                             Name = "STAR WARS™: Battlefront Classic Collection",
                             ProcessName = "Battlefront2.exe",
                             SteamAppId = 2446550,
-                            UpdatedAt = new DateTime(2025, 9, 25, 21, 47, 23, 441, DateTimeKind.Utc).AddTicks(1549)
+                            UpdatedAt = new DateTime(2025, 9, 26, 18, 18, 6, 838, DateTimeKind.Utc).AddTicks(8543)
                         });
                 });
 
@@ -228,6 +228,12 @@ namespace tmodworks.Data.Migrations
                     b.Property<string>("CheatId")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<string>("ControlType")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("text")
+                        .HasDefaultValue("TOGGLE");
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
@@ -247,9 +253,18 @@ namespace tmodworks.Data.Migrations
                         .HasColumnType("boolean")
                         .HasDefaultValue(true);
 
+                    b.Property<decimal?>("Max")
+                        .HasColumnType("decimal(18,6)");
+
+                    b.Property<decimal?>("Min")
+                        .HasColumnType("decimal(18,6)");
+
                     b.Property<int[]>("Offsets")
                         .IsRequired()
                         .HasColumnType("integer[]");
+
+                    b.Property<decimal?>("Step")
+                        .HasColumnType("decimal(18,6)");
 
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
@@ -268,15 +283,16 @@ namespace tmodworks.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "5f0958e2-c7d3-43f5-aa36-1f3185185637",
+                            Id = "a6f97787-2192-4df4-86f7-e7525574bbd0",
                             BaseAddress = "023DF1B0",
-                            CheatId = "1e15a719-b17c-4cb7-b31e-7b9eb79df3fa",
-                            CreatedAt = new DateTime(2025, 9, 25, 21, 47, 23, 441, DateTimeKind.Utc).AddTicks(1612),
+                            CheatId = "4fd1cd7e-c97b-42ba-b604-6b7aa557e527",
+                            ControlType = "TOGGLE",
+                            CreatedAt = new DateTime(2025, 9, 26, 18, 18, 6, 838, DateTimeKind.Utc).AddTicks(8603),
                             DisplayName = "Infinite Health",
-                            GameId = "4495544a-1d1a-44a6-87c0-f3232028e9cd",
+                            GameId = "0ecd7690-b369-461e-8a99-4ba1f3a0c457",
                             IsActive = true,
                             Offsets = new[] { 38 },
-                            UpdatedAt = new DateTime(2025, 9, 25, 21, 47, 23, 441, DateTimeKind.Utc).AddTicks(1613)
+                            UpdatedAt = new DateTime(2025, 9, 26, 18, 18, 6, 838, DateTimeKind.Utc).AddTicks(8604)
                         });
                 });
 

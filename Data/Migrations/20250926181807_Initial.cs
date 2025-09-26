@@ -77,6 +77,10 @@ namespace tmodworks.Data.Migrations
                     BaseAddress = table.Column<string>(type: "text", nullable: false),
                     Offsets = table.Column<int[]>(type: "integer[]", nullable: false),
                     IsActive = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true),
+                    ControlType = table.Column<string>(type: "text", nullable: false, defaultValue: "TOGGLE"),
+                    Min = table.Column<decimal>(type: "numeric(18,6)", nullable: true),
+                    Max = table.Column<decimal>(type: "numeric(18,6)", nullable: true),
+                    Step = table.Column<decimal>(type: "numeric(18,6)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP")
                 },
@@ -99,38 +103,45 @@ namespace tmodworks.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "CheatCategories",
+                columns: new[] { "Id", "Name", "Priority" },
+                values: new object[,]
+                {
+                    { "0f5afa3f-3d99-4969-91f6-c75d867269c9", "OTHER", 8 },
+                    { "4699a053-420d-4ecd-aac5-eba93ed4167a", "TELEPORT", 7 },
+                    { "62cc82e6-6688-48a6-8fe5-a0149e8208e8", "PHYSICS", 6 },
+                    { "74bab71c-6522-4b58-9e02-f3c72108a2cb", "INVENTORY", 1 },
+                    { "86c8bd7f-d407-460a-a6e4-29903fbbc5be", "WEAPONS", 4 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "CheatCategories",
                 columns: new[] { "Id", "Name" },
-                values: new object[] { "2d0e264d-4192-4d5a-9ed9-dc64a1ecc04b", "PLAYER" });
+                values: new object[] { "a48f0eb2-f930-48fa-8f6d-fd6f265fca71", "PLAYER" });
 
             migrationBuilder.InsertData(
                 table: "CheatCategories",
                 columns: new[] { "Id", "Name", "Priority" },
                 values: new object[,]
                 {
-                    { "49983f5c-3382-4ead-af25-6aba0e544ac2", "ENEMIES", 3 },
-                    { "6bc4e6ee-4ac3-4d83-810f-7176dd05ca49", "GAME", 5 },
-                    { "a6931b4a-b337-40ed-affa-076cc42d8fa1", "TELEPORT", 7 },
-                    { "ad8a1cb0-b355-4bb4-a4f4-c40b2d993943", "STATS", 2 },
-                    { "b9c740f2-b8f2-48b0-aa47-9ab4728a7b25", "WEAPONS", 4 },
-                    { "e3872ec1-deb7-47b7-9ec1-28a6fa00db01", "PHYSICS", 6 },
-                    { "e4ad9b77-3e53-41ae-8a0f-47ea680fde27", "OTHER", 8 },
-                    { "e964d84c-b235-414f-bc95-4524e761ffed", "INVENTORY", 1 }
+                    { "bbcc9473-2b20-4675-a951-6bfb04ef17c6", "GAME", 5 },
+                    { "c9540210-a1ef-425f-a048-1e0170d1d175", "STATS", 2 },
+                    { "ef0e46f8-2003-4f90-93b7-30c614160dd1", "ENEMIES", 3 }
                 });
 
             migrationBuilder.InsertData(
                 table: "Games",
                 columns: new[] { "Id", "CreatedAt", "IsActive", "ModuleName", "Name", "ProcessName", "SteamAppId", "UpdatedAt" },
-                values: new object[] { "4495544a-1d1a-44a6-87c0-f3232028e9cd", new DateTime(2025, 9, 25, 21, 47, 23, 441, DateTimeKind.Utc).AddTicks(1548), true, "Battlefront2.dll", "STAR WARS™: Battlefront Classic Collection", "Battlefront2.exe", 2446550, new DateTime(2025, 9, 25, 21, 47, 23, 441, DateTimeKind.Utc).AddTicks(1549) });
+                values: new object[] { "0ecd7690-b369-461e-8a99-4ba1f3a0c457", new DateTime(2025, 9, 26, 18, 18, 6, 838, DateTimeKind.Utc).AddTicks(8543), true, "Battlefront2.dll", "STAR WARS™: Battlefront Classic Collection", "Battlefront2.exe", 2446550, new DateTime(2025, 9, 26, 18, 18, 6, 838, DateTimeKind.Utc).AddTicks(8543) });
 
             migrationBuilder.InsertData(
                 table: "Cheats",
                 columns: new[] { "Id", "CategoryId", "CreatedAt", "IsActive", "Name", "UpdatedAt" },
-                values: new object[] { "1e15a719-b17c-4cb7-b31e-7b9eb79df3fa", "2d0e264d-4192-4d5a-9ed9-dc64a1ecc04b", new DateTime(2025, 9, 25, 21, 47, 23, 441, DateTimeKind.Utc).AddTicks(1577), true, "Health", new DateTime(2025, 9, 25, 21, 47, 23, 441, DateTimeKind.Utc).AddTicks(1578) });
+                values: new object[] { "4fd1cd7e-c97b-42ba-b604-6b7aa557e527", "a48f0eb2-f930-48fa-8f6d-fd6f265fca71", new DateTime(2025, 9, 26, 18, 18, 6, 838, DateTimeKind.Utc).AddTicks(8571), true, "Health", new DateTime(2025, 9, 26, 18, 18, 6, 838, DateTimeKind.Utc).AddTicks(8572) });
 
             migrationBuilder.InsertData(
                 table: "GameCheats",
-                columns: new[] { "Id", "BaseAddress", "CheatId", "CreatedAt", "DisplayName", "GameId", "IsActive", "Offsets", "UpdatedAt" },
-                values: new object[] { "5f0958e2-c7d3-43f5-aa36-1f3185185637", "023DF1B0", "1e15a719-b17c-4cb7-b31e-7b9eb79df3fa", new DateTime(2025, 9, 25, 21, 47, 23, 441, DateTimeKind.Utc).AddTicks(1612), "Infinite Health", "4495544a-1d1a-44a6-87c0-f3232028e9cd", true, new[] { 38 }, new DateTime(2025, 9, 25, 21, 47, 23, 441, DateTimeKind.Utc).AddTicks(1613) });
+                columns: new[] { "Id", "BaseAddress", "CheatId", "ControlType", "CreatedAt", "DisplayName", "GameId", "IsActive", "Max", "Min", "Offsets", "Step", "UpdatedAt" },
+                values: new object[] { "a6f97787-2192-4df4-86f7-e7525574bbd0", "023DF1B0", "4fd1cd7e-c97b-42ba-b604-6b7aa557e527", "TOGGLE", new DateTime(2025, 9, 26, 18, 18, 6, 838, DateTimeKind.Utc).AddTicks(8603), "Infinite Health", "0ecd7690-b369-461e-8a99-4ba1f3a0c457", true, null, null, new[] { 38 }, null, new DateTime(2025, 9, 26, 18, 18, 6, 838, DateTimeKind.Utc).AddTicks(8604) });
 
             migrationBuilder.CreateIndex(
                 name: "IX_CheatCategories_Name",

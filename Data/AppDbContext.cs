@@ -68,6 +68,10 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
       entity.Property(e => e.BaseAddress).IsRequired();
       entity.Property(e => e.Offsets).HasColumnType("integer[]");
       entity.Property(e => e.IsActive).HasDefaultValue(true);
+      entity.Property(e => e.ControlType).IsRequired().HasDefaultValue("TOGGLE");
+      entity.Property(e => e.Min).HasColumnType("decimal(18,6)");
+      entity.Property(e => e.Max).HasColumnType("decimal(18,6)");
+      entity.Property(e => e.Step).HasColumnType("decimal(18,6)");
       entity.Property(e => e.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
       entity.Property(e => e.UpdatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
 

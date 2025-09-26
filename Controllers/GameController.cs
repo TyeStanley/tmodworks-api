@@ -9,6 +9,7 @@ public class GameController(IGameService gameService) : ControllerBase
 {
   private readonly IGameService _gameService = gameService;
 
+  // Returns all games
   [HttpGet]
   public async Task<ActionResult<IEnumerable<Models.Game>>> GetAllGames([FromQuery] string? search = null)
   {
@@ -23,6 +24,7 @@ public class GameController(IGameService gameService) : ControllerBase
     }
   }
 
+  // Return a game by its app id
   [HttpGet("{appId}")]
   public async Task<ActionResult<Models.Game>> GetGameByAppId(int appId)
   {
